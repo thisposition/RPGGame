@@ -1,0 +1,166 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+
+//this.button1.Click += button1_Click;
+//this.button3.Click += button3_Click;
+
+namespace Goblin
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            LoadAndDisplayImage();
+        }
+
+        private void LoadAndDisplayImage()
+        {
+            // Load the image from a file
+            Image fullImage = Image.FromFile(@"C:\Users\Randyy\Desktop\Game pics\GUI pics\goblin.jpg");
+
+            // Calculate the middle portion of the image (assuming the image is larger)
+            int middleWidth = fullImage.Width;
+            int middleHeight = fullImage.Height;
+            int startX = (fullImage.Width - middleWidth);
+            int startY = (fullImage.Height - middleHeight);
+
+            // Create a rectangle representing the middle portion
+            Rectangle middleRect = new Rectangle(startX, startY, middleWidth, middleHeight);
+
+            // Create a bitmap to hold the middle portion
+            Bitmap middleImage = new Bitmap(middleWidth, middleHeight);
+
+            // Create a graphics object from the bitmap
+            using (Graphics g = Graphics.FromImage(middleImage))
+            {
+                // Draw the middle portion onto the bitmap
+                g.DrawImage(fullImage, new Rectangle(0, 0, middleWidth, middleHeight), middleRect, GraphicsUnit.Pixel);
+            }
+
+            // Resize the image to fit in the PictureBox (optional)
+            middleImage = ResizeImage(middleImage, pictureBox1.Width, pictureBox1.Height);
+
+            // Display the resized image in the PictureBox
+            pictureBox1.Image = middleImage;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Image fullImage = Image.FromFile(@"C:\Users\Randyy\Desktop\Game pics\GUI pics\Gone Goblin.png");
+
+            // Calculate the middle portion of the image (assuming the image is larger)
+            int middleWidth = fullImage.Width;
+            int middleHeight = fullImage.Height;
+            int startX = (fullImage.Width - middleWidth);
+            int startY = (fullImage.Height - middleHeight);
+
+            // Create a rectangle representing the middle portion
+            Rectangle middleRect = new Rectangle(startX, startY, middleWidth, middleHeight);
+
+            // Create a bitmap to hold the middle portion
+            Bitmap middleImage = new Bitmap(middleWidth, middleHeight);
+
+            // Create a graphics object from the bitmap
+            using (Graphics g = Graphics.FromImage(middleImage))
+            {
+                // Draw the middle portion onto the bitmap
+                g.DrawImage(fullImage, new Rectangle(0, 0, middleWidth, middleHeight), middleRect, GraphicsUnit.Pixel);
+            }
+
+            middleImage = ResizeImage(middleImage, pictureBox1.Width, pictureBox1.Height);
+            //Display the middle portion in the PictureBox
+            pictureBox1.Image = middleImage;
+        }
+
+
+
+
+
+
+        //section 2 for button click 2
+
+
+
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Image fullImage = Image.FromFile(@"C:\Users\Randyy\Desktop\Game pics\GUI pics\Romcom Goblin.png");
+
+            // Calculate the middle portion of the image (assuming the image is larger)
+            int middleWidth = fullImage.Width;
+            int middleHeight = fullImage.Height;
+            int startX = (fullImage.Width - middleWidth);
+            int startY = (fullImage.Height - middleHeight);
+
+            // Create a rectangle representing the middle portion
+            Rectangle middleRect = new Rectangle(startX, startY, middleWidth, middleHeight);
+
+            // Create a bitmap to hold the middle portion
+            Bitmap middleImage = new Bitmap(middleWidth, middleHeight);
+
+            // Create a graphics object from the bitmap
+            using (Graphics g = Graphics.FromImage(middleImage))
+            {
+                // Draw the middle portion onto the bitmap
+                g.DrawImage(fullImage, new Rectangle(0, 0, middleWidth, middleHeight), middleRect, GraphicsUnit.Pixel);
+            }
+
+            middleImage = ResizeImage(middleImage, pictureBox1.Width, pictureBox1.Height);
+            //Display the middle portion in the PictureBox
+            pictureBox1.Image = middleImage;
+
+            this.richTextBox1.Text = "WHAAAAA!?!?! Baka I don't want to date a stinky human!! I mean, I guess I don't mind because I bought a pack of YugiOh cards and i want to open them for someone....";
+        }
+
+
+
+
+
+
+
+
+        //Image fullImage = Image.FromFile(@"C:\Users\Randyy\Desktop\Game pics\Ammo\yup.png");
+
+
+
+        private Bitmap ResizeImage(Image image, int width, int height)
+        {
+            int newWidth, newHeight;
+
+            // Calculate new dimensions while preserving aspect ratio
+            if (image.Width > image.Height)
+            {
+                newWidth = width;
+                newHeight = (int)((float)image.Height / image.Width * width);
+            }
+            else
+            {
+                newWidth = (int)((float)image.Width / image.Height * height);
+                newHeight = height;
+            }
+
+            // Create a new bitmap with the resized dimensions
+            Bitmap resizedImage = new Bitmap(newWidth, newHeight);
+
+            // Draw the original image onto the new bitmap
+            using (Graphics g = Graphics.FromImage(resizedImage))
+            {
+                g.DrawImage(image, 0, 0, newWidth, newHeight);
+            }
+
+            return resizedImage;
+        }
+
+    }
+}
