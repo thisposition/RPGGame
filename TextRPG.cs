@@ -12,6 +12,7 @@ public class Character
     public int Defense { get; set; }
     public int Intelligence { get; set; }
     public int Mana { get;set;}
+    public int Experience { get; set; }
 
     // Get the random library
     private static Random random = new Random();
@@ -38,7 +39,7 @@ public void Attack(Character attacker, Character target)
         target.Health -= damage;
         Console.WriteLine($"{attacker.Name} deals {damage} to {target.Name}: Remaining health = {target.Health}\n");
     }
-
+// Function tp heal player character. Costs 5 Mana. 
 public void Low_Heal (Character target)
     {
 
@@ -51,6 +52,7 @@ public void Low_Heal (Character target)
     }
 
 }
+// Subclass to Character. Defines EXP values for enemies. 
 public class Enemy : Character
 {
     public int EXP { get; set; }
@@ -61,6 +63,15 @@ public class Enemy : Character
     {
         EXP = exp;
     }
+    // experience_gain defines how exp is added from enemies to players. (INCOMPLETE)
+ public void drop_exp(Character player, Character enemy )
+    {
+        int experience_gain = enemy.Experience;
+        player.Experience += experience_gain;
+        Console.WriteLine($"You win! You gained {enemy.Experience} exp");
+    }
+
+
 }
 
 
@@ -135,12 +146,12 @@ class RPG
             // If Enemy dies you win, else the enemy will attack back.
             if (enemy.Health <= 0)
             {
-                Console.WriteLine($"You win! You gained {enemy.EXP} exp");
+                enemy.drop_exp(player,enemy);
                 isRunning = false;
 
             }
 
-            if (player.Health <= 0)
+            if (player.Health <= 0 && enemy.Health <= 0)
             {
                 Console.WriteLine($"You LOSE {player.Name}");
                 isRunning = false;
